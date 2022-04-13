@@ -2,8 +2,10 @@
 
 
   <div id="app">
+    <link rel = "shortcut icon" href ="#">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    
     <header>
             <a href="#" class="logo"><i class="fas fa-school" style="font-size: 25px;background: -webkit-linear-gradient(#f3b3c6, #f7e0a2);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">&nbsp; ASC</i></a>
             
