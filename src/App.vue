@@ -54,7 +54,7 @@
                 <h1>Club Activities to Choose From</h1> <br><br>
 
                 <main>
-                    <lesson-list @addLesson="addLessonToCart"></lesson-list>
+                    <lesson-list :lessons="lessons" @addLesson="addLessonToCart"></lesson-list>
                 </main>
                 </section>
             </div>
@@ -62,22 +62,17 @@
 
                 <h3>CheckOut!</h3>
 
-        <!-- Displaying the lessons in the cart, if the cart is not empty -->
-        <div class="main" v-if ="this.cart.length > 0" >
-            <checkout :cart="cart" @removeLesson="removeLessonFromCart"></checkout>
-        </div>
-        <!-- If all products are removed from cart, button is displayed to take back to the products page -->
-        <div class="main" v-else>
-            <button @click ="showCheckout()" class = "goBackBtn">
-                <span  class="fas fa-arrow-left">&nbsp; Back To Products</span>
-            </button>
-        </div>
+                <!-- Displaying the lessons in the cart, if the cart is not empty -->
+                <div class="main" v-if ="this.cart.length > 0" >
+                    <checkout :cart="cart" @removeLesson="removeLessonFromCart"></checkout>
+                </div>
+                <!-- If all products are removed from cart, button is displayed to take back to the products page -->
+                <div class="main" v-else>
+                    <button @click ="showCheckout()" class = "goBackBtn">
+                        <span  class="fas fa-arrow-left">&nbsp; Back To Products</span>
+                    </button>
+                </div>
             </div>
-        
-            
-
-
-
   </div>
 </template>
 
@@ -94,9 +89,22 @@ export default {
   data() {
     return {
       cart: [],
+      lessons :[],
       showLessons: true,
     };
   },
+   mounted(){            //created function fetches the lessons
+
+    //fetching the lessons from server
+    fetch('https://cst3145cwhadassah.herokuapp.com/collection/lessons').then( response => {
+        response.json().then(json => {
+            this.lessons = json;
+            console.log(json);
+        } )
+
+    });
+        
+    },
   methods: {
     // showCheckout() {},
     addLessonToCart(lesson) {
@@ -109,7 +117,6 @@ export default {
         this.showLessons = this.showLessons ? false : true;
     },
     removeLessonFromCart(lesson){
-
         //increase the spaces by one on the main page
         lesson.spaces += 1;
         for(let i = 0; i <= this.cart.length; i++){
